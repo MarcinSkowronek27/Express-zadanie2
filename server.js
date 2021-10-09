@@ -1,29 +1,28 @@
 const express = require('express');
+const db = require('./db');
 
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const db = [
-  { id: 1, author: 'John Doe', text: 'This company is worth every coin!' },
-  { id: 2, author: 'Amanda Doe', text: 'They really know how to make you happy.' },
-  // { id: 3, author: 'Mietek' },
-  // { id: 4, author: 'Janek' },
-];
-console.log(db);
+// const db = [
+//   { id: 1, author: 'John Doe', text: 'This company is worth every coin!' },
+//   { id: 2, author: 'Amanda Doe', text: 'They really know how to make you happy.' },
+// ];
+// console.log(db);
 
 app.get('/testimonials', (req, res) => {
-  res.json(db);
+  res.json(db.testimonials);
 });
 
 app.get('/testimonials/random', (req, res) => {
-  const randomElem = Math.floor(Math.random() * db.length);
-  res.json(db[randomElem]);
+  const randomElem = Math.floor(Math.random() * db.testimonials.length);
+  res.json(db.testimonials[randomElem]);
 });
 
 app.get('/testimonials/:id', (req, res) => {
-  res.json(db[req.params.id]);
+  res.json(db.testimonials[req.params.id]);
 });
 
 app.post('/testimonials', (req, res) => {
