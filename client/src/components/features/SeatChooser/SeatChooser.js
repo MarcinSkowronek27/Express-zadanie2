@@ -1,20 +1,18 @@
 import React from 'react';
 import { Button, Progress, Alert } from 'reactstrap';
 import './SeatChooser.scss';
-import { loadSeats } from '../../../redux/seatsRedux';
+// import { loadSeats } from '../../../redux/seatsRedux';
 
 class SeatChooser extends React.Component {
 
   componentDidMount() {
     const { loadSeats } = this.props;
     loadSeats();
-    const test = setInterval(loadSeats(), 120000);
-    return test;
-    // console.log(ReactDOM.findDOMNode(this));
+    this.setState({interval: setInterval(()=>loadSeats(), 120000)});
   }
 
   componentWillUnmount() {
-    clearInterval(test);
+    clearInterval(this.state.interval);
   }
 
   isTaken = (seatId) => {
