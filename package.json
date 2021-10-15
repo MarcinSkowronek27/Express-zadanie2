@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "v14.x"
+  },
   "scripts": {
     "start": "node server.js",
     "build": "cd client && yarn install && yarn build"
