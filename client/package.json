@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "v14.x"
+    "node": "v14.x",
+    "npm": "v7.x"
   },
   "dependencies": {
     "axios": "0.18.0",
