@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Progress, Alert } from 'reactstrap';
 import './SeatChooser.scss';
+import io from 'socket.io-client';
 // import { loadSeats } from '../../../redux/seatsRedux';
 
 class SeatChooser extends React.Component {
@@ -8,7 +9,11 @@ class SeatChooser extends React.Component {
   componentDidMount() {
     const { loadSeats } = this.props;
     loadSeats();
-    this.setState({interval: setInterval(()=>loadSeats(), 120000)});
+    this.setState({ interval: setInterval(() => loadSeats(), 120000) });
+
+    this.socket = io('http://localhost:8000');
+    this.socket.on('updateData', (tasks) => this.updateTasks(tasks));
+
   }
 
   componentWillUnmount() {
