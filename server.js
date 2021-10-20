@@ -13,6 +13,11 @@ io.on('connection', (socket) => {
   console.log('New Socket!');
 });
 
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
 const testimonialsRoutes = require('./routes/testimonials.routes');
 const concertsRoutes = require('./routes/concerts.routes');
 const seatsRoutes = require('./routes/seats.routes');
