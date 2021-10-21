@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const randomID = require('@marcin_lark30/randomid-generator');
 
 router.route('/seats').get((req, res) => {
   res.json(db.seats);
@@ -20,7 +21,8 @@ router.route('/seats').post((req, res) => {
     res.status(400).send('The slot is already taken...');
     // res.status(400).send('The slot is already taken...').json( { message: "The slot is already taken..." });
   } else
-    db.seats.push({ id: db.seats.pop().id + 1, day, seat, client, email })
+  req.io.emit('test', db.seats);
+    db.seats.push({ id: randomID(3), day, seat, client, email })
     req.io.emit('seatsUpdated', db.seats);
   res.json({ message: 'OK' });
 });
