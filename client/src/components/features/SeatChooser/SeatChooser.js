@@ -27,27 +27,19 @@ class SeatChooser extends React.Component {
     this.socket.on('seatsUpdated', (seats) => {
 
       loadSeatsData(seats);
-      // console.log('seats:', seats);
       // przefiltruj seats, które przyszły wg wybranego dnia i przypisz do zmiennej
       let filterArray = seats.filter(item => item.day === this.props.chosenDay);
-      console.log('odfiltrowane seats:', filterArray);
+      // console.log('odfiltrowane seats:', filterArray);
       // utwórz lokalną zmienną, która będzie równa 50 - długość tablicy utworzonej powyżej
       let freeSeats = 50 - filterArray.length;
       // ustawiamy nowy stan, w którym aktualizujemy seats o te nowe + lokalną zmienną
       this.setState({
         seats,
         freeSeats
-      }, () => console.log('pokaż stan:', this.state))
+      });
     });
     // ostatni krok to wykorzystuje element freeSeats z nowego stanu i wrzucam go do metody render
-    // this.socket.on('test', (seats) => {
-    //   console.log('aktualna tablica:', seats);
-    // })
   }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.state.interval);
-  // }
 
   isTaken = (seatId) => {
     const { seats, chosenDay } = this.props;
