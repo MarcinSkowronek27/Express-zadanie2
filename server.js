@@ -26,6 +26,18 @@ const seatsRoutes = require('./routes/seats.routes');
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// app.use(process.env.NODE_ENV  || 8000, () => {
+//   testimonialsRoutes
+// });
+// app.use(process.env.NODE_ENV  || 8000, () => {
+//   concertsRoutes
+// });
+// app.use(process.env.NODE_ENV  || 8000, () => {
+//   seatsRoutes
+// });
+
+// app.use((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:8000/', seatsRoutes);
+
 app.use('/api', testimonialsRoutes);
 app.use('/api', concertsRoutes);
 app.use('/api', seatsRoutes);
