@@ -23,7 +23,7 @@ class SeatChooser extends React.Component {
     loadSeats();
     // this.setState({ interval: setInterval(() => loadSeats(), 120000) });
 
-    this.socket = io((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:8000/');
+    this.socket = io((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:8000');
     this.socket.on('seatsUpdated', (seats) => {
 
       loadSeatsData(seats);
