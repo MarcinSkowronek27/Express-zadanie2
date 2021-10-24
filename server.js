@@ -4,7 +4,7 @@ const path = require('path');
 const socket = require('socket.io');
 
 const app = express();
-const server = app.listen(process.env.NODE_ENV || 8000, () => {
+const server = app.listen(process.env.PORT || 8000, () => {
   console.log('Server is running...');
 });
 
@@ -26,18 +26,6 @@ const seatsRoutes = require('./routes/seats.routes');
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(process.env.NODE_ENV  || 8000, () => {
-//   testimonialsRoutes
-// });
-// app.use(process.env.NODE_ENV  || 8000, () => {
-//   concertsRoutes
-
-// });
-// app.use(process.env.NODE_ENV  || 8000, () => {
-//   seatsRoutes
-// });
-
-// app.use((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:8000/', seatsRoutes);
 
 app.use('/api', testimonialsRoutes);
 app.use('/api', concertsRoutes);
