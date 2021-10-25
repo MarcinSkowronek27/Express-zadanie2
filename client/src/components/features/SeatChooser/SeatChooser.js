@@ -6,6 +6,7 @@ import io from 'socket.io-client';
 
 class SeatChooser extends React.Component {
 
+  
   state = {
     seats: '',
     freeSeats: ''
