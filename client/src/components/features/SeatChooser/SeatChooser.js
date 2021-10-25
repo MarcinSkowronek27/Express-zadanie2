@@ -5,22 +5,23 @@ import io from 'socket.io-client';
 
 
 class SeatChooser extends React.Component {
+
+  state = {
+    seats: '',
+    freeSeats: ''
+  }
   
-  test = () => {
+  seatsOnStart = () => {
     let filterArray = this.props.seats.filter(item => item.day === this.props.chosenDay);
     let freeSeat = 50 - filterArray.length;
     console.log('filterArray:', filterArray);
     return freeSeat
   }
-  state = {
-    seats: '',
-    freeSeats: ''
-  }
 
-  
   componentDidMount() {
     const { loadSeats, loadSeatsData } = this.props;
     loadSeats();
+    this.seatsOnStart();
     // this.setState({ interval: setInterval(() => loadSeats(), 120000) });
 
     this.socket = io((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:8000');
@@ -68,7 +69,7 @@ class SeatChooser extends React.Component {
         {(requests['LOAD_SEATS'] && requests['LOAD_SEATS'].success) && <div className="seats">{[...Array(50)].map((x, i) => prepareSeat(i + 1))}</div>}
         {(requests['LOAD_SEATS'] && requests['LOAD_SEATS'].pending) && <Progress animated color="primary" value={50} />}
         {(requests['LOAD_SEATS'] && requests['LOAD_SEATS'].error) && <Alert color="warning">Couldn't load seats...</Alert>}
-        <p>Free seats: {this.test()}/50</p>
+        <p>Free seats: {this.seatsOnStart()}/50</p>
       </div>
     )
   };
