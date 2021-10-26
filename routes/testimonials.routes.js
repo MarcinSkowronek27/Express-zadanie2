@@ -2,35 +2,15 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-router.route('/testimonials').get((req, res) => {
-  res.json(db.testimonials);
-});
+const TestimonialController = require('../controllers/testimonials.controller');
 
-// app.get('/testimonials', (req, res) => {
-//   res.json(db.testimonials);
-// });
+router.route('/testimonials').get(TestimonialController.getAll);
 
-router.route('/testimonials/random').get((req, res) => {
-  const randomElem = Math.floor(Math.random() * db.testimonials.length);
-  res.json(db.testimonials[randomElem]);
-});
+router.route('/testimonials/random').get(TestimonialController.getRandom);
 
-// app.get('/testimonials/random', (req, res) => {
-//   const randomElem = Math.floor(Math.random() * db.testimonials.length);
-//   res.json(db.testimonials[randomElem]);
-// });
+router.route('/testimonials/:id').get(TestimonialController.getId);
 
-router.route('/testimonials/:id').get((req, res) => {
-  res.json(db.testimonials[req.params.id]);
-});
-
-// app.get('/testimonials/:id', (req, res) => {
-//   res.json(db.testimonials[req.params.id]);
-// });
-
-router.route('/testimonials').post((req, res) => {
-  res.json({ message: 'OK' });
-});
+router.route('/testimonials').post(TestimonialController.post);
 
 // app.post('/testimonials', (req, res) => {
 //   // const { author, text } = req.body;

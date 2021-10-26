@@ -2,7 +2,7 @@ const Seat = require('../models/seat.model');
 
 exports.getAll = async (req, res) => {
   try {
-    res.json(await Seat.find());
+    res.json(await Seat.find().populate('client'));
   }
   catch (err) {
     res.status(500).json({ message: err });
@@ -27,7 +27,6 @@ exports.post = async (req, res) => {
 
   try {
     const dep = await Seat.findOne({ seat: seat });
-    console.log('dep:', dep);
     if (!dep) {
       // res.status(400).send('The slot is already taken...').json( { message: "The slot is already taken..." });
       const newSeat = new Seat({ day, seat, client, email });
