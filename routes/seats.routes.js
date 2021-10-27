@@ -4,7 +4,6 @@ const router = express.Router();
 // const randomID = require('@marcin_lark30/randomid-generator');
 
 const SeatController = require('../controllers/seats.controller');
-// const Seat = require('../models/seat.model');
 
 router.route('/seats').get( SeatController.getAll);
 
