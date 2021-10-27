@@ -54,3 +54,34 @@ exports.post = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
+
+exports.putId = async (req, res) => {
+  const { author, text } = req.body;
+
+  try {
+    const tes = await Testimonial.findById(req.params.id);
+    if (tes) {
+      await Testimonial.updateOne({ _id: req.params.id }, { $set: { author, text } });
+      res.json(await Testimonial.find());
+    }
+    else res.status(404).json({ message: 'Not found...' });
+  }
+  catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
+
+exports.delete = async (req, res) => {
+
+  try {
+    const tes = await Testimonial.findById(req.params.id);
+    if (tes) {
+      await Testimonial.deleteOne({ _id: req.params.id });
+      res.json(await Testimonial.find());
+    }
+    else res.status(404).json({ message: 'Not found...' });
+  }
+  catch (err) {
+    res.status(500).json({ message: err });
+  }
+};

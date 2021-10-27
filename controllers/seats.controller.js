@@ -12,7 +12,7 @@ exports.getAll = async (req, res) => {
 exports.getId = async (req, res) => {
 
   try {
-    const dep = await Seat.findById(req.params.id);
+    const dep = await Seat.findById(req.params.id).populate('client');
     if (!dep) res.status(404).json({ message: 'Not found' });
     else res.json(dep);
   }
