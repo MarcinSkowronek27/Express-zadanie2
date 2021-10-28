@@ -6,45 +6,42 @@ import io from 'socket.io-client';
 
 class SeatChooser extends React.Component {
 
-  
   state = {
-    seats: '',
-    freeSeats: ''
+    seats: [],
   }
-  
-  seatsOnStart = () => {
-    let filterArray = this.props.seats.filter(item => item.day === this.props.chosenDay);
-    let freeSeat = 50 - filterArray.length;
+
+  calculateFreeSeats = () => {
+    let filterArray = this.props.seats.filter(
+      item => item.day === this.props.chosenDay
+    );
+    let freeSeats = 50 - filterArray.length;
     console.log('filterArray:', filterArray);
-    return freeSeat
+    return freeSeats;
   }
 
   componentDidMount() {
     const { loadSeats, loadSeatsData } = this.props;
     loadSeats();
-    this.seatsOnStart();
-    // this.setState({ interval: setInterval(() => loadSeats(), 120000) });
 
-    this.socket = io((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:8000');
+    this.socket = io(
+      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8000'
+    );
     this.socket.on('seatsUpdated', (seats) => {
-
+      this.setState({ seats });
       loadSeatsData(seats);
-      // przefiltruj seats, które przyszły wg wybranego dnia i przypisz do zmiennej
-      let filterArray = seats.filter(item => item.day === this.props.chosenDay);
-      // console.log('odfiltrowane seats:', filterArray);
-      // utwórz lokalną zmienną, która będzie równa 50 - długość tablicy utworzonej powyżej
-      let freeSeats = 50 - filterArray.length;
-      // ustawiamy nowy stan, w którym aktualizujemy seats o te nowe + lokalną zmienną
-      this.setState({
-        seats,
-        freeSeats
-      });
     });
-    // ostatni krok to wykorzystuje element freeSeats z nowego stanu i wrzucam go do metody render
+  }
+
+  componentDidUpdate(newProps, oldProps) {
+    if (newProps.seats.length !== oldProps.seats.length) {
+      const { seats } = newProps;
+      this.setState({ seats })
+    }
   }
 
   isTaken = (seatId) => {
-    const { seats, chosenDay } = this.props;
+    const { chosenDay } = this.props;
+    const { seats } = this.state;
     return (seats.some(item => (item.seat === seatId && item.day === chosenDay)));
   }
 
@@ -52,9 +49,16 @@ class SeatChooser extends React.Component {
     const { chosenSeat, updateSeat } = this.props;
     const { isTaken } = this;
 
-    if (seatId === chosenSeat) return <Button key={seatId} className="seats__seat" color="primary">{seatId}</Button>;
-    else if (isTaken(seatId)) return <Button key={seatId} className="seats__seat" disabled color="secondary">{seatId}</Button>;
-    else return <Button key={seatId} color="primary" className="seats__seat" outline onClick={(e) => updateSeat(e, seatId)}>{seatId}</Button>;
+    if (seatId === chosenSeat) 
+    return (
+    <Button key={seatId} className="seats__seat" color="primary">{seatId}</Button>
+    );
+    else if (isTaken(seatId)) 
+    return (
+    <Button key={seatId} className="seats__seat" disabled color="secondary">{seatId}</Button>);
+    else 
+    return (
+    <Button key={seatId} color="primary" className="seats__seat" outline onClick={(e) => updateSeat(e, seatId)}>{seatId}</Button>);
   }
 
   render() {
@@ -70,7 +74,7 @@ class SeatChooser extends React.Component {
         {(requests['LOAD_SEATS'] && requests['LOAD_SEATS'].success) && <div className="seats">{[...Array(50)].map((x, i) => prepareSeat(i + 1))}</div>}
         {(requests['LOAD_SEATS'] && requests['LOAD_SEATS'].pending) && <Progress animated color="primary" value={50} />}
         {(requests['LOAD_SEATS'] && requests['LOAD_SEATS'].error) && <Alert color="warning">Couldn't load seats...</Alert>}
-        <p>Free seats: {this.seatsOnStart()}/50</p>
+        <p>Free seats: {this.calculateFreeSeats()}/50</p>
       </div>
     )
   };

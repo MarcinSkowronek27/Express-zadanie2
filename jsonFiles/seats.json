@@ -1,0 +1,43 @@
+[{
+  "_id": {
+    "$oid": "6177daf50c3f3ca3585cadaf"
+  },
+  "day": 1,
+  "seat": 3,
+  "client": "6177db1e0c3f3ca3585cadb5"
+},{
+  "_id": {
+    "$oid": "6177daf50c3f3ca3585cadb0"
+  },
+  "day": 2,
+  "seat": 6,
+  "client": "6177db1e0c3f3ca3585cadb6"
+},{
+  "_id": {
+    "$oid": "6177daf50c3f3ca3585cadb1"
+  },
+  "day": 1,
+  "seat": 10,
+  "client": "6177db1e0c3f3ca3585cadb7"
+},{
+  "_id": {
+    "$oid": "6177daf50c3f3ca3585cadb2"
+  },
+  "day": 1,
+  "seat": 26,
+  "client": "6177db1e0c3f3ca3585cadb8"
+},{
+  "_id": {
+    "$oid": "6177daf50c3f3ca3585cadb3"
+  },
+  "day": 2,
+  "seat": 1,
+  "client": "6177db1e0c3f3ca3585cadb9"
+},{
+  "_id": {
+    "$oid": "6177daf50c3f3ca3585cadb4"
+  },
+  "day": 2,
+  "seat": 2,
+  "client": "6177db1e0c3f3ca3585cadba"
+}]

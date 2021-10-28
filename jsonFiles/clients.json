@@ -1,0 +1,37 @@
+[{
+  "_id": {
+    "$oid": "6177db1e0c3f3ca3585cadb5"
+  },
+  "email": "amandadoe@example.com",
+  "name": "Amanda Doe"
+},{
+  "_id": {
+    "$oid": "6177db1e0c3f3ca3585cadb6"
+  },
+  "email": "curtisj@example.com",
+  "name": "Curtis Johnson"
+},{
+  "_id": {
+    "$oid": "6177db1e0c3f3ca3585cadb7"
+  },
+  "email": "felxim98@example.com",
+  "name": "Felix McManara"
+},{
+  "_id": {
+    "$oid": "6177db1e0c3f3ca3585cadb8"
+  },
+  "email": "mefauna312@example.com",
+  "name": "Fauna Keithrins"
+},{
+  "_id": {
+    "$oid": "6177db1e0c3f3ca3585cadb9"
+  },
+  "email": "felxim98@example.com",
+  "name": "Felix McManara"
+},{
+  "_id": {
+    "$oid": "6177db1e0c3f3ca3585cadba"
+  },
+  "email": "moiler.lo.celso@example.com",
+  "name": "Molier Lo Celso"
+}]

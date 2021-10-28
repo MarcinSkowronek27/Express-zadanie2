@@ -31,8 +31,8 @@ exports.post = async (req, res) => {
       // res.status(400).send('The slot is already taken...').json( { message: "The slot is already taken..." });
       const newSeat = new Seat({ day, seat, client, email });
       await newSeat.save();
-      res.json(await Seat.find());
-      req.io.emit('seatsUpdated', newSeat);
+      res.json(newSeat);
+      req.io.emit('seatsUpdated', await Seat.find());
     } else 
     res.status(400).send('The slot is already taken...');
     // req.io.emit('seatsUpdated', newSeat);
