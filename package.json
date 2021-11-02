@@ -4,14 +4,20 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "cd client && npm install && npm run build"
+    "build": "cd client && npm install && npm run build",
+    "test": "set NODE_ENV=test&& mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
+    "test:watch": "onchange \"./**/*.js\" -i -k -- yarn test"
   },
   "dependencies": {
     "@marcin_lark30/randomid-generator": "^1.0.3",
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mocha": "6.2.1",
     "mongoose": "5.7.1",
     "nodemon": "^2.0.14",
+    "onchange": "6.1.0",
     "socket.io": "2.2.0"
   }
 }
