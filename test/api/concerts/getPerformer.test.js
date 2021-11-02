@@ -30,6 +30,16 @@ describe('GET /concerts', () => {
       id: 2
     });
     await testConTwo.save();
+
+    const testConThree = new Concert({
+      _id: '3d9f1140f10a81216cfd4489', performer: 'Adam Nowy',
+      genre: 'Pop',
+      price: 30,
+      day: 1,
+      image: '/img/uploads/hdfh42sd815.jpg',
+      id: 3
+    });
+    await testConThree.save();
   });
 
   after(async () => {
@@ -41,21 +51,41 @@ describe('GET /concerts', () => {
     const res = await request(server).get('/api/concerts');
     expect(res.status).to.be.equal(200);
     expect(res.body).to.be.an('array');
-    expect(res.body.length).to.be.equal(2);
+    expect(res.body.length).to.be.equal(3);
 
   });
 
-  it('/:id should return one performer by :performer ', async () => {
-    const res = await request(server).get('/concerts/performer/John Doe');
+  it('/:performer should return one performer by :performer ', async () => {
+    const perf = 'John Doe'
+    const res = await request(server).get(`/concerts/performer/${perf}`);
+    const testPerf = await Concert.findOne({performer: `${perf}`});
+    expect(testPerf.performer).to.be.equal(`${perf}`);
     expect(res.status).to.be.equal(200);
     expect(res.body).to.be.an('object');
     expect(res.body).to.not.be.null;
   });
 
-  it('/:id should return genre by :genre ', async () => {
-    const res = await request(server).get('/concerts/genre/Po7');
+  it('/:genre should return all concerts by :genre ', async () => {
+    const genre = 'Pop';
+    const res = await request(server).get(`/concerts/genre/${genre}`);
+    const testGenre = await Concert.find({genre: `${genre}`});
+    // expect(testGenre[0].genre).to.be.equal(`${genre}`);
+    // expect(testGenre[1].genre).to.be.equal(`${genre}`);
+    expect(testGenre).not.to.be.null;
     expect(res.status).to.be.equal(200);
     expect(res.body).to.be.an('object');
     expect(res.body).to.not.be.null;
+    expect(testGenre.length).to.be.equal(2);
+  });
+
+  it('/:day should return all concerts by :day ', async () => {
+    const da = 1;
+    const res = await request(server).get(`/concerts/genre/${da}`);
+    const testDay = await Concert.find({day: `${da}`});
+    expect(testDay).not.to.be.null;
+    expect(res.status).to.be.equal(200);
+    expect(res.body).to.be.an('object');
+    expect(res.body).to.not.be.null;
+    expect(testDay.length).to.be.equal(2);
   });
 });
