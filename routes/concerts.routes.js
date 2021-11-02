@@ -10,6 +10,10 @@ router.route('/concerts/performer/:performer').get(ConcertController.getPerforme
 
 router.route('/concerts/genre/:genre').get(ConcertController.getGenre);
 
+router.route('/concerts/price/day/:day').get(ConcertController.getDay);
+
+router.route('/concerts/price/:price_min/:price_max').get(ConcertController.getPriceMinMax);
+
 router.route('/concerts/:id').get(ConcertController.getId);
 
 router.route('/concerts').post(ConcertController.post);

@@ -12,8 +12,8 @@ exports.getAll = async (req, res) => {
 exports.getPerformer = async (req, res) => {
 
   try {
-    const per = await Concert.find({performer: req.params.performer});
-    if (!per) res.status(404).json({ message: 'Not found' });
+    const per = await Concert.find({ performer: req.params.performer });
+    if (per.length == 0) res.status(404).json({ message: 'Not found' });
     else res.json(per);
   }
   catch (err) {
@@ -25,8 +25,8 @@ exports.getPerformer = async (req, res) => {
 exports.getGenre = async (req, res) => {
 
   try {
-    const gen = await Concert.find({genre: req.params.genre});
-    if (!gen) res.status(404).json({ message: 'Not found' });
+    const gen = await Concert.find({ genre: req.params.genre });
+    if (gen.length == 0) res.status(404).json({ message: 'Not found' });
     else res.json(gen);
   }
   catch (err) {
@@ -34,6 +34,34 @@ exports.getGenre = async (req, res) => {
   }
 
 };
+
+exports.getDay = async (req, res) => {
+
+  try {
+    const da = await Concert.find({ day: req.params.day });
+    if (da.length == 0) res.status(404).json({ message: 'Not found' });
+    else res.json(da);
+  }
+  catch (err) {
+    res.status(500).json({ message: err });
+  }
+
+};
+
+exports.getPriceMinMax = async (req, res) => {
+  const minPrice = req.params.price_min
+  const maxPrice = req.params.price_max
+  try {
+    const gen = await Concert.find({ $and: [{ price: { $gte: minPrice} }, { price: {  $lte: maxPrice}}] });
+    if (gen.length == 0) res.status(404).json({ message: 'Not found' });
+    else res.json(gen);
+  }
+  catch (err) {
+    res.status(500).json({ message: err });
+  }
+
+};
+
 
 exports.getId = async (req, res) => {
 
