@@ -6,6 +6,10 @@ const ConcertController = require('../controllers/concerts.controller');
 
 router.route('/concerts').get( ConcertController.getAll);
 
+router.route('/concerts/performer/:performer').get(ConcertController.getPerformer);
+
+router.route('/concerts/genre/:genre').get(ConcertController.getGenre);
+
 router.route('/concerts/:id').get(ConcertController.getId);
 
 router.route('/concerts').post(ConcertController.post);

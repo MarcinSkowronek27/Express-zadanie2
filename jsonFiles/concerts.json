@@ -28,4 +28,14 @@
   "day": 1,
   "image": "/img/uploads/hdfh42sd213.jpg",
   "id": 3
+},{
+  "_id": {
+    "$oid": "61818485674225616cd7c6c7"
+  },
+  "performer": "Jerzy Killer",
+  "genre": "Rock",
+  "price": 30,
+  "day": 2,
+  "image": "/img/uploads/pexterkbm159.jpg",
+  "id": 4
 }]

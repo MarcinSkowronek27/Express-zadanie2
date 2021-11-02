@@ -9,6 +9,32 @@ exports.getAll = async (req, res) => {
   }
 };
 
+exports.getPerformer = async (req, res) => {
+
+  try {
+    const per = await Concert.find({performer: req.params.performer});
+    if (!per) res.status(404).json({ message: 'Not found' });
+    else res.json(per);
+  }
+  catch (err) {
+    res.status(500).json({ message: err });
+  }
+
+};
+
+exports.getGenre = async (req, res) => {
+
+  try {
+    const gen = await Concert.find({genre: req.params.genre});
+    if (!gen) res.status(404).json({ message: 'Not found' });
+    else res.json(gen);
+  }
+  catch (err) {
+    res.status(500).json({ message: err });
+  }
+
+};
+
 exports.getId = async (req, res) => {
 
   try {
