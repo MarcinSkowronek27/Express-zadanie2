@@ -88,4 +88,16 @@ describe('GET /concerts', () => {
     expect(res.body).to.not.be.null;
     expect(testDay.length).to.be.equal(2);
   });
+
+  it(':price_min/:price_max should return all concerts by :price_min and :price_max ', async () => {
+    const minPrice = 25;
+    const maxPrice = 30;
+    const res = await request(server).get(`/concerts/price/:${minPrice}/:${maxPrice}`);
+    const testPrice = await Concert.find({ $and: [{ price: { $gte: minPrice} }, { price: {  $lte: maxPrice}}] });
+    expect(testPrice).not.to.be.null;
+    expect(res.status).to.be.equal(200);
+    expect(res.body).to.be.an('object');
+    expect(res.body).to.not.be.null;
+    expect(testPrice.length).to.be.equal(2);
+  });
 });
