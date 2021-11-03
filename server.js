@@ -4,7 +4,7 @@ const path = require('path');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://Admin-max:Database@cluster0.xxdw6.mongodb.net/newWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect(`mongodb+srv://Admin-max:${process.env.PASS_TEST}@cluster0.xxdw6.mongodb.net/newWaveDB?retryWrites=true&w=majority`, { useNewUrlParser: true });
 
 const testimonialsRoutes = require('./routes/testimonials.routes');
 const concertsRoutes = require('./routes/concerts.routes');
