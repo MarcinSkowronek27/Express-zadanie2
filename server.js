@@ -3,8 +3,11 @@ const cors = require('cors');
 const path = require('path');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
+require('dotenv').config();
 
-mongoose.connect(`mongodb+srv://Admin-max:${process.env.PASS_TEST}@cluster0.xxdw6.mongodb.net/newWaveDB?retryWrites=true&w=majority`, { useNewUrlParser: true });
+
+// mongoose.connect(`mongodb+srv://Admin-max:${process.env.PASS_TEST}@cluster0.xxdw6.mongodb.net/newWaveDB?retryWrites=true&w=majority`, { useNewUrlParser: true });
 
 const testimonialsRoutes = require('./routes/testimonials.routes');
 const concertsRoutes = require('./routes/concerts.routes');
@@ -15,8 +18,8 @@ const app = express();
 const NODE_ENV = process.env.NODE_ENV;
 let dbUri = '';
 
-if(NODE_ENV === 'production') dbUri = 'url to remote db';
-else if(NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/newWaveDBtest';
+if (NODE_ENV === 'production') dbUri = `mongodb+srv://${process.env.USER_TEST}:${process.env.PASS_TEST}@cluster0.xxdw6.mongodb.net/newWaveDB?retryWrites=true&w=majority`;
+else if (NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/newWaveDBtest';
 else dbUri = 'mongodb://localhost:27017/newWaveDB';
 
 mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -42,6 +45,8 @@ const io = socket(server);
 io.on('connection', (socket) => {
   console.log('New Socket!');
 });
+
+app.use(helmet());
 
 app.use((req, res, next) => {
   req.io = io;
