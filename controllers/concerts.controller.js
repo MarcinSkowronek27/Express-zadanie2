@@ -79,11 +79,11 @@ exports.getId = async (req, res) => {
 
 exports.post = async (req, res) => {
   const { performer, genre, price, day, image, id } = req.body;
-  clean = sanitize(performer);
-
+  clean = sanitize(req.body.performer);
+  console.log('clean:', clean);
   try {
     const con = await Concert.findOne({ performer: clean });
-    // console.log('con:', con);
+    console.log('con:', con);
     if (!con) {
       // res.status(400).send('The slot is already taken...').json( { message: "The slot is already taken..." });
       const newConcert = new Concert({ performer, genre, price, day, image, id });
