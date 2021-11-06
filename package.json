@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "cd client && npm install && npm run build",
-    "test": "set NODE_ENV=test&& mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
+    "test": "snyk test && set NODE_ENV=test&& mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
     "test:watch": "onchange \"./**/*.js\" -i -k -- yarn test"
   },
   "dependencies": {
@@ -14,12 +14,12 @@
     "chai-http": "4.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mocha": "6.2.1",
+    "mocha": "9.1.2",
     "mongo-sanitize": "1.0.1",
-    "mongoose": "5.7.1",
+    "mongoose": "5.13.9",
     "nodemon": "^2.0.14",
     "onchange": "6.1.0",
-    "snyk": "1.235.0",
-    "socket.io": "2.2.0"
+    "snyk": "^1.753.0",
+    "socket.io": "3.0.0"
   }
 }
