@@ -1,4 +1,5 @@
 const Concert = require('../models/concert.model');
+const sanitize = require('mongo-sanitize');
 
 exports.getAll = async (req, res) => {
   try {
@@ -52,7 +53,7 @@ exports.getPriceMinMax = async (req, res) => {
   const minPrice = req.params.price_min
   const maxPrice = req.params.price_max
   try {
-    const gen = await Concert.find({ $and: [{ price: { $gte: minPrice} }, { price: {  $lte: maxPrice}}] });
+    const gen = await Concert.find({ $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }] });
     if (gen.length == 0) res.status(404).json({ message: 'Not found' });
     else res.json(gen);
   }
@@ -78,9 +79,11 @@ exports.getId = async (req, res) => {
 
 exports.post = async (req, res) => {
   const { performer, genre, price, day, image, id } = req.body;
+  clean = sanitize(performer);
 
   try {
-    const con = await Concert.findOne({ performer });
+    const con = await Concert.findOne({ performer: clean });
+    // console.log('con:', con);
     if (!con) {
       // res.status(400).send('The slot is already taken...').json( { message: "The slot is already taken..." });
       const newConcert = new Concert({ performer, genre, price, day, image, id });
