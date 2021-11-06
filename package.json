@@ -19,6 +19,7 @@
     "mongoose": "5.7.1",
     "nodemon": "^2.0.14",
     "onchange": "6.1.0",
+    "snyk": "1.235.0",
     "socket.io": "2.2.0"
   }
 }
