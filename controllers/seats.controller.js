@@ -27,18 +27,21 @@ exports.post = async (req, res) => {
 
   try {
     const dep = await Seat.findOne({ day: day, seat: seat });
+    // if (!client) throw new Error('"text" param is invalid!');
+    // else 
     if (!dep) {
       // res.status(400).send('The slot is already taken...').json( { message: "The slot is already taken..." });
       const newSeat = new Seat({ day, seat, client, email });
       await newSeat.save();
       res.json(newSeat);
       req.io.emit('seatsUpdated', await Seat.find());
-    } else 
-    res.status(400).send('The slot is already taken...');
+    } else
+      res.status(400).send('The slot is already taken...');
     // req.io.emit('seatsUpdated', newSeat);
   }
   catch (err) {
     res.status(500).json({ message: err });
+    // throw new Error('"text" param is invalid!');
   }
 };
 
