@@ -27,6 +27,10 @@ exports.post = async (req, res) => {
 
   try {
     const dep = await Seat.findOne({ day: day, seat: seat });
+    const pattern = new RegExp(/(<\s*(strong|em)*>(([A-z]|\s)*)<\s*\/\s*(strong|em)>)|(([A-z]|\s|\.)*)/, 'g');
+    const clientMatched = client.match(pattern).join('');
+    console.log('clientMatched:', clientMatched, 'client:', client);
+    if (clientMatched.length < client.length) throw new Error('Invalid characters...');
     // if (!client) throw new Error('"text" param is invalid!');
     // else 
     if (!dep) {

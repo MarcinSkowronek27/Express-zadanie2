@@ -21,8 +21,12 @@ let dbUri = '';
 if (NODE_ENV === 'production') dbUri = `mongodb+srv://${process.env.USER_TEST}:${process.env.PASS_TEST}@cluster0.xxdw6.mongodb.net/newWaveDB?retryWrites=true&w=majority`;
 else if (NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/newWaveDBtest';
 else dbUri = 'mongodb://localhost:27017/newWaveDB';
-
+try {
 mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+} catch(err){
+  if(process.env.debug === true) console.log(err);
+  else console.log('Couldn\'t connect to db...');
+}
 const db = mongoose.connection;
 
 db.once('open', () => {

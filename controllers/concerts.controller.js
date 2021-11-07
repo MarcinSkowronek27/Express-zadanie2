@@ -80,7 +80,7 @@ exports.getId = async (req, res) => {
 exports.post = async (req, res) => {
   const { performer, genre, price, day, image, id } = req.body;
   performerSan = sanitize(performer);
-  console.log('performerSan:', performerSan, 'performer:', performer);
+  // console.log('performerSan:', performerSan, 'performer:', performer);
   try {
     const con = await Concert.findOne({ performerSan });
     console.log('con:', con);
