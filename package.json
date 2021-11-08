@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@marcin_lark30/randomid-generator": "^1.0.3",
-    "chai": "4.2.0",
+    "chai": "4.3.4",
     "chai-http": "4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
